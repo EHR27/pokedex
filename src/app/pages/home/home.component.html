@@ -1,0 +1,25 @@
+<main id="container">
+  <app-foto-pokemon
+    [src]="pokemonSeleccionado?.sprites?.front_default"
+    [alt]="pokemonSeleccionado?.name"
+    [ngClass]="{levantado: aperturaDetalle}"
+    >
+  </app-foto-pokemon>
+  <div id="tarjetasContainer" #tarjetas (scroll)="onScroll($event)">
+      <app-tarjeta-pokemon
+      *ngFor="let pokemon of listaPokemons"
+      [data]="pokemon"
+      (clicked)="tarjetaClickeada($event)"
+      [seleccionado]="pokemonSeleccionado?.name === pokemon.name"
+      >
+    </app-tarjeta-pokemon>
+    <img src="./../../../assets/img/spinner.svg" alt="Cargando" id="spinner" *ngIf="cargando">
+  </div>
+  <app-detalle
+    [pokemon]="pokemonSeleccionado"
+    [abierto]="aperturaDetalle"
+    (cambiarEstadoApertura)="aperturaDetalle = !aperturaDetalle"
+    [ngClass]="{abierto: aperturaDetalle}"
+    >
+  </app-detalle>
+</main>
